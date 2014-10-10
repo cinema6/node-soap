@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<definitions name='de.adtech.webservices.helios.lowLevel.WebsiteManagement.MultiPart' targetNamespace='http://systinet.com/wsdl/de/adtech/webservices/helios/lowLevel/WebsiteManagement/' 
+    xmlns='http://schemas.xmlsoap.org/wsdl/' 
+    xmlns:tns='http://systinet.com/wsdl/MultiPartSample/'
+    xmlns:ns0='http://systinet.com/xsd/SchemaTypes/' >
+    <types>
+        <xsd:schema elementFormDefault="qualified"
+            targetNamespace="http://systinet.com/xsd/SchemaTypes/"
+            xmlns:ns0="http://systinet.com/xsd/SchemaTypes/"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:element name="var1" nillable="true" type="xsd:long"/>
+            <xsd:element name="var2" nillable="true" type="xsd:long"/>
+        </xsd:schema>
+    </types>
+    <message name='MultiPart_TestMethod_Request_Soap'>
+        <part name='var1' element='ns0:var1'/>
+        <part name='var2' element='ns0:var2'/>
+    </message>
+    <message name='MultiPart_TestMethod_Response_Soap'>
+        <part name='response' element='ns0:var1'/>
+    </message>
+    <portType name='MultiPart'>
+        <operation name='TestMethod' parameterOrder='var1 var2'>
+            <input message='tns:MultiPart_TestMethod_Request_Soap'/>
+            <output message='tns:MultiPart_TestMethod_Response_Soap'/>
+        </operation>
+    </portType>
+    <binding name='MultiPart' type='tns:MultiPart'>
+        <soap:binding transport='http://schemas.xmlsoap.org/soap/http' style='document'/>
+        <operation name='TestMethod'>
+            <soap:operation soapAction='TestMethod' style='document'/>
+            <input>
+                <soap:body parts='var1 var2' use='literal'/>
+            </input>
+            <output>
+                <soap:body parts='response' use='literal'/>
+            </output>
+        </operation>
+    </binding>
+    <service name='MultiPart'>
+        <port name='MultiPart' binding='tns:MultiPart'>
+            <soap:address location='http://ws.us-ec.adtechus.com/MultiPart/'/>
+        </port>
+        <port name='MultiPart_SOAP12' binding='tns:MultiPart_SOAP12'>
+            <soap12:address location='http://ws.us-ec.adtechus.com/MultiPart/'/>
+        </port>
+    </service>
+</definitions>
